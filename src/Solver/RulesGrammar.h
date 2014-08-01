@@ -39,26 +39,26 @@ namespace Logic
 			_rules = (*qi::space >> '"' >> _rule >> '"' >> *qi::space) % ',';
 		}
 
-		// Посылка
+		// РџРѕСЃС‹Р»РєР°
 		void Premise(const std::string& factStr)
 		{
 			_stackRule.Expression.clear();
 			_stackRule.Premise = Fact::FromString(factStr);
 		}
 
-		// Операнд И
+		// РћРїРµСЂР°РЅРґ СЃ Р
 		void And(const std::string& factStr)
 		{
 			_stackRule.Expression.push_back(Rule::Operand{ Rule::eOperations::AND, Fact::FromString(factStr) });
 		}
 
-		// Оператор ИЛИ
+		// РћРїРµСЂР°РЅРґ СЃ РР›Р
 		void Or(const std::string& factStr)
 		{
 			_stackRule.Expression.push_back(Rule::Operand{ Rule::eOperations::OR, Fact::FromString(factStr) });
 		}
 
-		// Вывод
+		// Р’С‹РІРѕРґ
 		void Implication(const std::string& factStr)
 		{
 			_stackRule.Implication = Fact::FromString(factStr);
