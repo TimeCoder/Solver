@@ -9,14 +9,14 @@ namespace Logic
 {
 	void Expert::Think(std::string factsString, std::string rulesString, TFacts& newFacts)
 	{
-		// Парсим факты
+		// РџР°СЂСЃРёРј С„Р°РєС‚С‹
 		FactsGrammar<std::string::iterator> factsGrammar;
 		if (!qi::phrase_parse(std::begin(factsString), std::end(factsString), factsGrammar, qi::space))
 		{
 			throw std::invalid_argument("Can't parse facts");
 		}
 
-		// Парсим правила
+		// РџР°СЂСЃРёРј РїСЂР°РІРёР»Р°
 		RulesGrammar<std::string::iterator> rulesGrammar;
 		if (!qi::phrase_parse(std::begin(rulesString), std::end(rulesString), rulesGrammar, qi::space))
 		{
@@ -26,7 +26,7 @@ namespace Logic
 		TFacts facts = factsGrammar.Facts();
 		const TRules& rules = rulesGrammar.Rules();
 
-		// Делаем вывод новых фактов
+		// Р’С‹РІРѕРґРёРј РЅРѕРІС‹Рµ С„Р°РєС‚С‹
 		bool hasNewFacts;
 		do
 		{
@@ -34,20 +34,20 @@ namespace Logic
 
 			for (auto rule : rules)
 			{
-				// Вычисляем новый факт
+				// РЎ РїРѕРјРѕС‰СЊСЋ РїСЂР°РІРёР»Р° Р’С‹РІРѕРґРёРј РЅРѕРІС‹Р№ С„Р°РєС‚ РёР· СѓР¶Рµ РёР·РІРµСЃС‚РЅС‹С… С„Р°РєС‚РѕРІ
 				auto newFact = rule.Apply(facts);
 
-				// Получен истинный факт, и он еще не известен?
+				// Р¤Р°РєС‚ РµС‰Рµ РЅРµ РёР·РІРµСЃС‚РµРЅ?
 				if (newFact.is_initialized() && newFact.get().IsFalseOn(facts))
 				{
-					// Заносим его
+					// Р”РѕР±Р°РІР»СЏРµРј
 					facts.push_back(newFact.get());
 					newFacts.push_back(newFact.get());
 					hasNewFacts = true;
 				}
 			}
 
-		} while (hasNewFacts); // Пока появляются новые факты
+		} while (hasNewFacts); // ГЏГ®ГЄГ  ГЇГ®ГїГўГ«ГїГѕГІГ±Гї Г­Г®ГўГ»ГҐ ГґГ ГЄГІГ»
 	}
 
 }
