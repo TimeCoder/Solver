@@ -3,13 +3,12 @@
 
 namespace Logic
 {
-	// Передаются известные факты: дает возможность вычислять любое высказывание 
-	// на изолированном множестве посылок
+	// Р’С‹РІРѕРґ РЅРѕРІРѕРіРѕ С„Р°РєС‚Р° РЅР° РѕСЃРЅРѕРІРµ РїСЂР°РІРёР»Р°
 	boost::optional<Fact> Rule::Apply(TFacts& knownFacts) const
 	{
 		boost::optional<Fact> result;
 
-		// Начинаем движение по выражению, с первого факта
+		// РќР°С‡РёРЅР°РµРј СЃ РїРµСЂРІРѕРіРѕ С„Р°РєС‚Р° РІ РІС‹СЂР°Р¶РµРЅРёРё
 		bool isTrue = Premise.IsTrueOn(knownFacts);
 
 		for (auto operand : Expression)
@@ -25,7 +24,6 @@ namespace Logic
 			};
 		}
 
-		// В итоге истинное выражение? Тогда возвращаем факт
 		if (isTrue) result = Implication;
 
 		return result;
